@@ -69,7 +69,7 @@ public class LoanController {
     @PostMapping("/{loanId}/repayments")
     public ResponseEntity<?> makeRepayment(@PathVariable Long loanId, @RequestBody Double amount) {
         try {
-            LoanRepayment repayment = RepaymentService.createLoanRepayment(loanId, amount); // Use the instance method through the service
+            LoanRepayment repayment = RepaymentService.createLoanRepayment(loanId, amount);
             return new ResponseEntity<>(repayment, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to make repayment: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -79,7 +79,7 @@ public class LoanController {
     @GetMapping("/{loanId}/repayments")
     public ResponseEntity<?> getRepayments(@PathVariable Long loanId) {
         try {
-            List<LoanRepayment> repayments = RepaymentService.getLoanRepayments(loanId); // Use the instance method through the service
+            List<LoanRepayment> repayments = RepaymentService.getLoanRepayments(loanId);
             return new ResponseEntity<>(repayments, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to get repayments: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -89,4 +89,4 @@ public class LoanController {
 }
 
 
-}
+
