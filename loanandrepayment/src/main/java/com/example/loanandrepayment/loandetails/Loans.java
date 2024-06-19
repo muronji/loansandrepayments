@@ -1,7 +1,15 @@
 package com.example.loanandrepayment.loandetails;
 
+import com.example.loanandrepayment.loanrepayment.Repayment;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Setter
+@Getter
 @Entity
 public class Loans {
     @Id
@@ -12,60 +20,17 @@ public class Loans {
     private Long customerId;
 
     @Column(nullable = false)
-    private Double loanAmount = 0.0;
+    private Double loanAmount;
 
     @Column(nullable = false)
-    private Integer loanPeriodMonths = 1;
+    private Integer duration;
 
     @Column(nullable = false)
     private String repaymentMethod;
 
-    @Column(nullable = false)
-    private Double interestRate = 0.0;
+    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Repayment> repayments = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Double remainingAmount = 0.0;
-
-    // Getters and Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Long getId() {
-        return id;
-    }
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-    public Long getCustomerId() {
-        return customerId;
-    }
-    public void setLoanAmount(Double loanAmount) {
-        this.loanAmount = loanAmount;
-    }
-    public Double getLoanAmount() {
-        return loanAmount;
-    }
-    public void setLoanPeriodMonths(Integer loanPeriodMonths) {
-        this.loanPeriodMonths = loanPeriodMonths;
-    }
-    public Integer getLoanPeriodMonths() {
-        return loanPeriodMonths;
-    }
-    public void setRepaymentMethod(String repaymentMethod) {
-        this.repaymentMethod = repaymentMethod;
-    }
-    public String getRepaymentMethod() {
-        return repaymentMethod;
-    }
-    public void setInterestRate(Double interestRate) {
-        this.interestRate = interestRate;
-    }
-    public Double getInterestRate() {
-        return interestRate;
-    }
-
-    public void setRemainingAmount(Double remainingAmount) {this.remainingAmount = remainingAmount;}
-    public Double getRemainingAmount() {return remainingAmount;}
 
 
 }
