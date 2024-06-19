@@ -31,10 +31,15 @@ public class RepaymentService {
         loanRepayment.setPaymentDate(LocalDateTime.now());
 
         Double remainingAmount = loan.getLoanAmount() - repaymentDTO.amountPaid();
+
+        if (remainingAmount < 0) {
+            throw new RuntimeException("Repayment amount exceeds the remaining loan amount.");
+        }
+
         loanRepayment.setRemainingAmount(remainingAmount);
 
         Repayment savedLoanRepayment = repaymentRepository.save(loanRepayment);
-
+        
         loan.setLoanAmount(remainingAmount);
         loanRepository.save(loan);
 
