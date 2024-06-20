@@ -39,7 +39,7 @@ public class RepaymentService {
         loanRepayment.setRemainingAmount(remainingAmount);
 
         Repayment savedLoanRepayment = repaymentRepository.save(loanRepayment);
-        
+
         loan.setLoanAmount(remainingAmount);
         loanRepository.save(loan);
 
