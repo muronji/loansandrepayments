@@ -1,6 +1,6 @@
 package com.example.loanandrepayment.loandetails;
 
-import com.example.loanandrepayment.loanrepayment.Repayment;
+import com.example.loanandrepayment.transactions.Transactions;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +28,17 @@ public class Loans {
     @Column(nullable = false)
     private String repaymentMethod;
 
+    @Column (nullable = false)
+    private Double balance;
+
+    @PrePersist
+    public void setDefaultBalance() {
+        this.balance = this.loanAmount; // Set balance equal to loanAmount by default
+    }
+
+
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Repayment> repayments = new ArrayList<>();
+    private List<Transactions> repayments = new ArrayList<>();
 
 
 
