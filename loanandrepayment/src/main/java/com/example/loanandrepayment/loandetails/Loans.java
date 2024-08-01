@@ -1,19 +1,18 @@
-package com.example.loanandrepayment.loandetails;
+package com.example.loanandrepayment.loans;
 
 import com.example.loanandrepayment.transactions.Transactions;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Loans {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -28,18 +27,11 @@ public class Loans {
     @Column(nullable = false)
     private String repaymentMethod;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Double balance;
 
-    @PrePersist
-    public void setDefaultBalance() {
-        this.balance = this.loanAmount; // Set balance equal to loanAmount by default
-    }
-
-
-    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transactions> repayments = new ArrayList<>();
-
+    @OneToMany(mappedBy = "loan")
+    private List<Transactions> transactions;
 
 
 }
